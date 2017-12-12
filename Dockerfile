@@ -32,7 +32,7 @@ RUN phpenmod -s ALL maxminddb
 RUN sed -i -e "s/;opcache.enable=0/opcache.enable=1/g"                                               /etc/php/7.0/cli/php.ini
 RUN sed -i -e "s/;opcache.enable_cli=0/opcache.enable_cli=1/g"                                       /etc/php/7.0/cli/php.ini
 RUN sed -i -e "s/;opcache.file_cache=/opcache.file_cache=\"\/var\/tmp\/php\/opcache\"/g"             /etc/php/7.0/cli/php.ini
-RUN sed -i -e "s/;opcache.file_cache_only=0/opcache.file_cache_only=1/g"       		                 /etc/php/7.0/cli/php.ini
+RUN sed -i -e "s/;opcache.file_cache_only=0/opcache.file_cache_only=1/g"                             /etc/php/7.0/cli/php.ini
 RUN sed -i -e "s/;opcache.file_cache_consistency_checks=1/opcache.file_cache_consistency_checks=1/g" /etc/php/7.0/cli/php.ini
 #
 # Remove the packages that are no longer required after the package has been installed
