@@ -1,5 +1,5 @@
 FROM smsimoes/consul-template:latest
-MAINTAINER "Miguel Simões <msimoes@gmail.com>"
+LABEL maintainer="Miguel Simões <msimoes@gmail.com>"
 #
 # Ensure that we have the latest packages associated with the image
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq
