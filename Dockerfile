@@ -4,7 +4,7 @@ LABEL maintainer="Miguel Simões <msimoes@gmail.com>"
 # Ensure that we have the latest packages associated with the image
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -qq
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ca-certificates php7.1-bcmath php7.1-curl php7.1-cli php7.1-json php7.1-mbstring php7.1-mcrypt php7.1-memcached php7.1-mysql php7.1-xmlrpc php7.1-xsl php7.1-dev php-pear unzip wget
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ca-certificates php7.2-bcmath php7.2-curl php7.2-cli php7.2-json php7.2-mbstring php7.2-memcached php7.2-mysql php7.2-xmlrpc php7.2-xsl php7.2-dev php-pear unzip wget
 #
 # We need to ensure that the opcache directory is available
 RUN mkdir -p /var/tmp/php/opcache
@@ -23,20 +23,20 @@ ADD lib/libmaxminddb.la /usr/lib/libmaxminddb.la
 ADD lib/libmaxminddb.so.0.0.7 /usr/lib/libmaxminddb.so.0.0.7
 RUN ln -sf /usr/lib/libmaxminddb.so.0.0.7 /usr/lib/libmaxminddb.so.0
 RUN ln -sf /usr/lib/libmaxminddb.so.0.0.7 /usr/lib/libmaxminddb.so
-ADD conf/php/7.1/mods-available/maxminddb.ini /etc/php/7.1/mods-available/maxminddb.ini
+ADD conf/php/7.2/mods-available/maxminddb.ini /etc/php/7.2/mods-available/maxminddb.ini
 #
 # To enable maxminddb module, please uncomment the line below
 RUN phpenmod -s ALL maxminddb
 #
 # Ensure that the PHP CLI configuration is optimized for the environment
-RUN sed -i -e "s/;opcache.enable=0/opcache.enable=1/g"                                               /etc/php/7.1/cli/php.ini
-RUN sed -i -e "s/;opcache.enable_cli=0/opcache.enable_cli=1/g"                                       /etc/php/7.1/cli/php.ini
-RUN sed -i -e "s/;opcache.file_cache=/opcache.file_cache=\"\/var\/tmp\/php\/opcache\"/g"             /etc/php/7.1/cli/php.ini
-RUN sed -i -e "s/;opcache.file_cache_only=0/opcache.file_cache_only=1/g"                             /etc/php/7.1/cli/php.ini
-RUN sed -i -e "s/;opcache.file_cache_consistency_checks=1/opcache.file_cache_consistency_checks=1/g" /etc/php/7.1/cli/php.ini
+RUN sed -i -e "s/;opcache.enable=0/opcache.enable=1/g"                                               /etc/php/7.2/cli/php.ini
+RUN sed -i -e "s/;opcache.enable_cli=0/opcache.enable_cli=1/g"                                       /etc/php/7.2/cli/php.ini
+RUN sed -i -e "s/;opcache.file_cache=/opcache.file_cache=\"\/var\/tmp\/php\/opcache\"/g"             /etc/php/7.2/cli/php.ini
+RUN sed -i -e "s/;opcache.file_cache_only=0/opcache.file_cache_only=1/g"                             /etc/php/7.2/cli/php.ini
+RUN sed -i -e "s/;opcache.file_cache_consistency_checks=1/opcache.file_cache_consistency_checks=1/g" /etc/php/7.2/cli/php.ini
 #
 # Remove the packages that are no longer required after the package has been installed
-RUN DEBIAN_FRONTEND=noninteractive apt-get purge php7.1-dev php-pear wget unzip -y -qq
+RUN DEBIAN_FRONTEND=noninteractive apt-get purge php7.2-dev php-pear wget unzip -y -qq
 RUN DEBIAN_FRONTEND=noninteractive apt-get autoremove --purge -qq -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get autoclean -y -qq
 RUN DEBIAN_FRONTEND=noninteractive apt-get clean -y -qq
