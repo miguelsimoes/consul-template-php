@@ -4,7 +4,7 @@ LABEL maintainer="Miguel Simões <msimoes@gmail.com>"
 # Ensure that we have the latest packages associated with the image
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -qq
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ca-certificates php7.2-bcmath php7.2-curl php7.2-cli php7.2-json php7.2-mbstring php7.2-memcached php7.2-mysql php7.2-xmlrpc php7.2-xsl php7.2-dev php-pear unzip wget
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ca-certificates php7.2-bcmath php7.2-curl php7.2-cli php7.2-intl php7.2-json php7.2-mbstring php7.2-memcached php7.2-mysql php7.2-xmlrpc php7.2-xsl php7.2-dev php-pear unzip wget
 #
 # We need to ensure that the opcache directory is available
 RUN mkdir -p /var/tmp/php/opcache
