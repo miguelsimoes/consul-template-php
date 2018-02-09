@@ -4,7 +4,18 @@ LABEL maintainer="Miguel Simões <msimoes@gmail.com>"
 # Ensure that we have the latest packages associated with the image
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -qq
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ca-certificates php7.1-bcmath php7.1-curl php7.1-cli php7.1-intl php7.1-json php7.1-mbstring php7.1-mcrypt php7.1-memcached php7.1-mysql php7.1-xmlrpc php7.1-xsl php7.1-dev php-pear unzip wget
+#
+# We will need to install the required packages so we can add the custom repository
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -qq wget
+#
+# We will need to add the base repository for the PHP packages with newer versions then the ones
+# provided with the Debian base image
+RUN echo "deb http://packages.sury.org/php jessie main" | tee /etc/apt/sources.list.d/dotdeb.list
+RUN wget --quiet -O - https://packages.sury.org/php/apt.gpg | apt-key add -
+#
+# We will 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -qq php7.1-bcmath php7.1-curl php7.1-cli php7.1-intl php7.1-json php7.1-mbstring php7.1-memcached php7.1-mysql php7.1-xmlrpc php7.1-xsl php7.1-dev php-pear unzip
 #
 # We need to ensure that the opcache directory is available
 RUN mkdir -p /var/tmp/php/opcache
